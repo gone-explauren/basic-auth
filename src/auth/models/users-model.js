@@ -1,5 +1,7 @@
 'use strict'
 
+const { DataTypes } = require('sequelize');
+
 // Create a Sequelize model
 const Users = sequelize.define('User', {
   username: {
@@ -12,3 +14,5 @@ const Users = sequelize.define('User', {
     allowNull: false,
   }
 });
+
+module.exports = Users;
