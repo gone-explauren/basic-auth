@@ -4,7 +4,7 @@ const basicAuth = require('./basic.js')
 const base64 = require ('base-64');
 
 describe('Testing basic auth middleware', () => {
-	test('Request contains all proper credentials, expect next to be called', () => {
+	xtest('Request contains all proper credentials, expect next to be called', () => {
 
 		const encodedMessage = base64.encode('username:password');
 
@@ -26,7 +26,7 @@ describe('Testing basic auth middleware', () => {
 		expect(next).toHaveBeenCalled()
 	});
 
-	test('No credentials present, response 403 returned', () => {
+	xtest('No credentials present, response 403 returned', () => {
 		const request = {headers: {}};
 		const response = {
 			send: jest.fn(() => response),

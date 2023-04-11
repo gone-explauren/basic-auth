@@ -1,8 +1,8 @@
 'use strict'
 // integration tests
 
-const supertest = require('supertest');
-const server = require('../server');
+// const supertest = require('supertest');
+const server = require('../src/server');
 const { User } = require('../models/');
 const bcrypt = require('bcrypt');
 const base64 = require('base-64');
@@ -23,7 +23,7 @@ describe('Testing routes', () => {
     let usrObj = {};
     test('Test sign-up', async() => {
         usrObj = {
-            username: 'Laurel',
+            username: 'laurel888',
             password: 'NaOH337!',
         };
 
