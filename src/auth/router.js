@@ -1,33 +1,10 @@
-'use strict';
+'use strict'
 
-// 3rd Party Resources
-const express = require('express');
-const bcrypt = require('bcrypt');
-const base64 = require('base-64');
-const { Sequelize, DataTypes } = require('sequelize');
-
-// Prepare the express app
-const app = express();
-
-// Process JSON input and put the data on req.body
-app.use(express.json());
-
-const sequelize = new Sequelize(process.env.DATABASE_URL);
-
-// Process FORM intput and put the data on req.body
-app.use(express.urlencoded({ extended: true }));
-
-// Create a Sequelize model
-const Users = sequelize.define('User', {
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  }
-});
+// // from the in-class demo:
+// UserModel.beforeCreate(async user => {
+//   user.password = await bcrypt.hash(user.password, 10);
+// });
+// // this is done below in the signup function, just slightly different
 
 // Signup Route -- create a new user
 // Two ways to test this route with httpie
@@ -42,6 +19,11 @@ app.post('/signup', async (req, res) => {
   } catch (e) { res.status(403).send('Error Creating User'); }
 });
 
+// // from in-class demo
+// app.post('/signup', async (request, response, next) => {
+//   let newUser = await UserModel.create(request.body);
+//   response.json(newUser);
+// });
 
 // Signin Route -- login with username and password
 // test with httpie
@@ -82,11 +64,3 @@ app.post('/signin', async (req, res) => {
   } catch (error) { res.status(403).send('Invalid Login'); }
 
 });
-
-// make sure our tables are created, start up the HTTP server.
-sequelize.sync()
-  .then(() => {
-    app.listen(3000, () => console.log('server up'));
-  }).catch(e => {
-    console.error('Could not start server', e.message);
-  });
