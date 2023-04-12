@@ -1,12 +1,12 @@
-'use strict'
-// integration tests
+'use strict';
+//integration test
 
-// const supertest = require('supertest');
+const supertest = require('supertest');
 const server = require('../src/server');
-const { User } = require('../models/');
+const { User } = require('../src/auth/models/');
 const bcrypt = require('bcrypt');
 const base64 = require('base-64');
-const { expect } = require('@jest/globals');
+// const { expect } = require('@jest/globals');
 
 const request = supertest(server.app);
 
@@ -21,10 +21,10 @@ afterAll( async() => {
 describe('Testing routes', () => {
     let expectedUser = {};
     let usrObj = {};
-    test('Test sign-up', async() => {
+    test('Test that signup works', async() => {
         usrObj = {
-            username: 'laurel888',
-            password: 'NaOH337!',
+            username: 'Bob',
+            password: 'BobBanana2!#',
         };
 
         const newUser = await request.post('/signup').send(usrObj);
@@ -36,14 +36,14 @@ describe('Testing routes', () => {
         expect(compared).toBeTruthy();
     });
 
-    test('Testing sign-in', async() => {
+    test('Test that sign-in works', async() => {
         const resp = await request.post('/signin').auth(usrObj.username, usrObj.password);
         expect(resp.text).toEqual('Log-in successful!');
         expect(resp.status).toEqual(200);
     });
 
     test('Bad route returns 404', async() => {
-        const resp = await request.post('/singin');
+        const resp = await request.post('/signout');
         expect(resp.status).toEqual(404);
     });
 

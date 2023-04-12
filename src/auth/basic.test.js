@@ -3,7 +3,7 @@
 const basicAuth = require('./middleware/basic');
 const bcrypt = require('bcrypt');
 const base64 = require('base-64');
-const { User } = require('./models/users-model');
+const { User } = require('./models/');
 
 beforeAll( async() => {
     await User.sync();
@@ -14,32 +14,31 @@ afterAll( async() => {
 });
 
 describe('Testing basic authentication', () => {
-    test('Credentials are being authenticated properly', async() => {
-        const newUser = {
-            username: 'laurel88',
-            password: 'NaOH337!',
+    test('Testing credentials are being authenticated properly', async() => {
+        const userObj = {
+            username: 'John',
+            password: 'Apples2Bananas$',
         };
-        const encodedString = base64.encode(newUser.username + ':' + newUser.password);
+        const encodedString = base64.encode(userObj.username + ':' + userObj.password);
 
-        newUser.password = await bcrypt.hash(newUser.password, 10);
+        userObj.password = await bcrypt.hash(userObj.password, 10);
+        const testUser = await User.create(userObj);
 
-        const testUser = await User.create(newUser);
-
-        const req = {
+        const reqDummy = {
             headers: {
                 authorization: `Basic ${encodedString}`,
             },
             body: {},
         };
 
-        const res = {
-            status: jest.fn(() => res),
-            json: jest.fn(() => res),
-            send: jest.fn(() => res),
+        const resDummy = {
+            status: jest.fn(() => resDummy),
+            json: jest.fn(() => resDummy),
+            send: jest.fn(() => resDummy),
         };
 
         const next = jest.fn();
-        await basicAuth(req, res, next);
+        await basicAuth(reqDummy, resDummy, next);
         expect(next).toHaveBeenCalled();
     });
 });
