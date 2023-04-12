@@ -1,6 +1,6 @@
 'use strict'
 
-const { DataTypes } = require('sequelize');
+const { sequelize, DataTypes } = require('sequelize');
 
 // Create a Sequelize model
 const Users = sequelize.define('User', {
