@@ -3,8 +3,8 @@
 const express = require('express');
 const cors = require('cors');
 const user_router = require('./auth/router');
-const error404 = require('./auth/middleware/404');
-const error500 = require('./auth/middleware/500');
+const error404 = require('./middleware/404');
+const error500 = require('./middleware/500');
 
 const app = express();
 app.use(express.json());

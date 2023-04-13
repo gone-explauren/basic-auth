@@ -8,8 +8,6 @@
 // // if no credentials, call error handler
 // // if username is not found or password is incorrect, call error handler / send error status
 
-'use strict';
-
 const bcrypt = require('bcrypt');
 const base64 = require('base-64');
 const express = require('express');

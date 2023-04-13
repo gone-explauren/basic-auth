@@ -22,7 +22,7 @@ async function createUser(req, res) {
 
 async function signinUser(req, res, next) {
     try {
-        res.status(200).send('Login successful!');
+        res.status(200).send('Log-in successful!');
     } catch (e) {
         res.status(401).send('Invalid credentials');
     }
